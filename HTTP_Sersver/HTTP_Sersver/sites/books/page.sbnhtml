@@ -1,0 +1,30 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.png">
+        <title>
+            Библиотека
+        </title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <h1>Библиотека</h1>
+        <div class="books">
+        {{ for book in model }}
+            <div class="book_1">
+                <div class="img" style="border: solid">
+                    <img src="/img/{{ book.Path }}">
+                </div>
+                <div class="name">{{ book.Name }}</div>
+                <div class="genre">{{ book.Genre }}
+                </div>
+                <div class="decription"> book.Description </div>
+                {{ if book.NotFavourite }}
+                    <input type="submit" style="display: none" value="{{ book.Name }}">
+                {{ end }}
+            </div>
+        {{ end }}
+        </div>
+    </body>
+</html>

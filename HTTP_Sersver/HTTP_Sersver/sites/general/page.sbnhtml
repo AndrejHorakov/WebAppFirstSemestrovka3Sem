@@ -1,0 +1,30 @@
+﻿<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.png">
+        <title>
+            BookIn
+        </title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <h1>Главная</h1>
+        {{ if flag }} 
+        <div class="windowEnter"> 
+            <input type="text" name="postText" placeholder="Введите текст" required>
+            <input type="submit" value="Опубликовать">
+        </div>
+        {{ end }}
+        <div class="posts">
+        {{ for post in model }}
+            <div class="post">
+                <div class="author">{{ post.Author }}</div>
+                <div class="text">{{ post.Text }}
+                </div>
+                <div class="temeBorn"> {{ post.PublicationDate }} </div>
+            </div>
+        {{ end }}
+        </div>
+    </body>
+</html>

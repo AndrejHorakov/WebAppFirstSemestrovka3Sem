@@ -1,0 +1,27 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.jpg">
+        <title>
+            Профиль
+        </title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <h1>Профиль</h1>
+        <div class="user">
+            <div class="img" style="border: solid">
+            </div>
+            <div class="id">{{ model.Id }}</div>
+            <div class="nickname">{{ model.Nickname }}
+            </div>
+            <input type="submit" value="{{ model.Nickname }}">
+            {{ for fb in model.FavBooks }}
+                <div class="name">{{ book.Name }}</div>
+                <div class="genre">{{ book.Genre }}</div>
+                <input type="submit" style="display: none" value="{{ book.Name }}">
+            {{ end }}
+        </div>
+    </body>
+</html>

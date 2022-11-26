@@ -1,0 +1,33 @@
+div{
+    display: block;
+}
+
+.books{
+    display: flex;
+    flex-flow: wrap;
+}
+
+.book_1{
+    width: 265px;
+    margin: 4px;
+}
+
+.name{
+    font:700 18px/20px "Museo Sans Cyrl 700", sans-serif;
+    color: black;
+}
+
+.img{
+    height: 194px;
+    width: 265px;
+}
+
+.genre{
+    font: 500 14px/16px "Museo Sans Cyrl 500", sans-serif;
+    color: #7c909c;
+}
+
+.decription{
+    font: 500 12px/16px "Museo Sans Cyrl 500", sans-serif;
+    color: #7c909c;
+}

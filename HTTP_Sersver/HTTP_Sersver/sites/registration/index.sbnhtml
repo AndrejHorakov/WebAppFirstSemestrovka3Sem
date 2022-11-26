@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.png">
+        <title>
+            BookIn
+        </title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+    <form method="post">
+        <div class="container">
+            <h1>Регистрация</h1>
+            <p>Пожалуйста, заполните эти формы, чтобы зарегистрироваться</p>
+            <hr>
+
+            <label for="login"><b>Имя</b></label>
+            <input type="text"  placeholder="Введите логин" name="login" required>
+
+            <label for="password"><b>Пароль</b></label>
+            <input type="password" placeholder="Введите пароль" name="password" required>
+
+            <label for="passwordAgain"><b>Повторите пароль</b></label>
+            <input type="password" placeholder="Повторите пароль" name="passwordAgain" required>
+            
+            <label for="nickname"><b>Введите ник</b></label>
+            <input type="text" placeholder="Введите ник" name="nickname" required>
+
+            <hr>
+
+            <label> 
+                <input type="checkbox" style= "height: 30px; width: 20px" name="remember_me" value = "on" /> Запомнить меня 
+                <input type="hidden"name="remember_me" value="off"/> 
+            </label>
+            <p>Создавая аккаунт, Вы соглашаетесь на наши условия <a href="#">Условия пользования</a>.</p>
+            <button type="submit" class="registerbtn">Зарегистрироваться</button>
+        </div>
+
+        <div class="container signin">
+            <p>Уже зарегистрированы? <a href="#">Войти</a>.</p>
+        </div>
+    </form>
+    </body>
+</html>

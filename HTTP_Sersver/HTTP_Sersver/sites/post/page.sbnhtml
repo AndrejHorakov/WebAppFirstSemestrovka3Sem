@@ -1,0 +1,20 @@
+﻿<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.png">
+        <title>
+            BookIn
+        </title>
+        <link rel="stylesheet" href="css/genre.css">
+    </head>
+    <body>
+        <div class="author">{{ model.Author }}</div>
+            <div class="text">{{ model.Text }}</div>
+            {{ if flag }}
+                <input type="submit" value="{{ model.Text }}">
+            {{ end }}
+            <div class="temeBorn"> {{ model.PublicationDate }} </div>
+        </div>
+    </body>
+</html>

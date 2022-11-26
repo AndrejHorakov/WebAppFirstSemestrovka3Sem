@@ -1,0 +1,17 @@
+﻿<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="img/book.png">
+        <title>
+            BookIn
+        </title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <a href="/authorisation" style="color:white" class="btn_sign">Войти</a> 
+            <a href="/registration" style="color:white" class="btn_sign">Зарегистрироваться</a>
+        </div>
+    </body>
+</html>
