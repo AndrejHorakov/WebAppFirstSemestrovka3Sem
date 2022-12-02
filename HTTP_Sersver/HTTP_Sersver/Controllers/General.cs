@@ -1,6 +1,8 @@
-﻿using NetConsoleApp.Attributes;
+﻿using System.Text;
+using NetConsoleApp.Attributes;
 using NetConsoleApp.DataBase;
 using NetConsoleApp.Models;
+using Scriban;
 
 namespace NetConsoleApp.Controllers;
 
@@ -12,14 +14,32 @@ public class General
     
     [HttpGET("")]
     public static byte[] GetGeneralPage(string id) =>
-        Application.GetChangedPage(id, new DataBaseForInstances(PostsTableName).Select<Post>().ToList(),
+        GetChangedPage(id, new DataBaseForInstances(PostsTableName).Select<Post>().ToList(),
             File.ReadAllText(Path.GetFullPath(GeneralPage)));
     
-    [HttpPOST("")]
-    public static byte[] UpdatePostById(string? id, string text, int idPost)
+    [HttpPOST("edit")]
+    public static void UpdatePostById(int idPost, string text, string id)
     {
         var db = new DataBaseForInstances(PostsTableName);
-        db.Update("Text", text, idPost);
-        return GetGeneralPage(id);
+        if (text is not (not null or "")) return;
+        db.Update("Text", text.Replace("+", " "), idPost);
+        db.Update("PublicationDate", DateTime.Now.ToString(), idPost);
+    }
+
+    [HttpPOST("add")]
+    public static void AddPost(string text, string? id)
+    {
+        var db = new DataBaseForInstances(PostsTableName);
+        var account = Application.GetById(id);
+        db.Insert(text.Replace("+", " "), DateTime.Today.ToString(), account.Nickname);
+    }
+
+    private static byte[] GetChangedPage<T>(string? id, T model, string page)
+    {
+        var user = Application.GetById(id);
+        var flag = user is not null;
+        var tpl = Template.Parse(page);
+        var res = tpl!.Render(new {model = model, flag = flag, user = user});
+        return Encoding.UTF8.GetBytes(res);
     }
 }

@@ -86,8 +86,16 @@ internal partial class HttpResponseProvider : IHttpResponseProvider
         var queryParams = method.GetParameters()
             .Select((p, i) => Convert.ChangeType(strParams[i], p.ParameterType))
             .ToArray();
+        object? ret = null;
+        try
+        {
+            ret = method.Invoke(Activator.CreateInstance(controller!), queryParams);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         
-        var ret = method.Invoke(Activator.CreateInstance(controller!), queryParams);
 
         if (method.Name == "ExiteProfile")
         {
@@ -156,7 +164,7 @@ internal partial class HttpResponseProvider : IHttpResponseProvider
         "PostFavBook" => "http://localhost:8080/books",
         "DeleteFavBook" => "http://localhost:8080/favBooks",
         "UpdateProfilePage" => "http://localhost:8080/profile",
-        _ => "http://localhost:8080/post"
+        _ => "http://localhost:8080/general"
     };
     
     private ServerResponse GetStaticFile(string? rawUrl, string fullPath, string urlRefer)

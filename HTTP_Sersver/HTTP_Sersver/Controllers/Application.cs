@@ -29,8 +29,7 @@ public class Application
     public static byte[] GetChangedPage<T>(string id, T model, string page)
     {
         var user = GetById(id);
-        var guid = new Guid(id);
-        var flag = user is null;
+        var flag = user is not null;
         var tpl = Template.Parse(page);
         var res = tpl!.Render(new {model = model, flag = flag});
         return Encoding.UTF8.GetBytes(res);
@@ -38,6 +37,8 @@ public class Application
     
     public static User? GetById(string id)
     {
+        //TODO: разобраться что надо Guid, если строка пустая или null
+        id = id is "" or null ? "NotFound" : id;
         var guid = new Guid(id);
         var session = SessionProvider.GetSessionInfo(guid);
         int usId;

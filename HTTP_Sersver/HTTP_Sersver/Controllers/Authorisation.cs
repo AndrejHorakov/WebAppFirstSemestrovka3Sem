@@ -23,7 +23,7 @@ public class Authorisation
     public static (bool, User?, bool) CheckAuthorisation(string login, string password, string remeberMe = "")
     {
         var db = new OrmAccountDao();
-        var user = db.GetAll().FirstOrDefault(u => u.Nickname == login);
+        var user = db.GetAll().FirstOrDefault(u => u.Login == login);
         if (user is null || Hasher.Hash(password) != user.Password)
             return (false, null, false);
         Guid result;

@@ -104,7 +104,7 @@ internal class HttpServer : IDisposable
         HttpListenerResponse response)
     {
         response.Cookies.Add(new Cookie("SessionId",
-            SessionProvider.CreateSession(acc.Item2.Id, acc.Item2.Nickname, DateTime.Now).ToString()));
+            SessionProvider.CreateSession(acc.Item2.Id, acc.Item2.Login, DateTime.Now).ToString()));
 
         if (!acc.Item3) return;
         Guid result;

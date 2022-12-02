@@ -4,14 +4,14 @@ public class Post
 {
     public int Id { get; }
     public string Text { get; }
-    public DateTime PublicationDate { get; }
+    public DateTime Date { get; }
     public string Author { get; }
 
-    public Post(int id, string text, DateTime publicationDate, string author)
+    public Post(int id, string text, DateTime date, string author)
     {
         Id = id;
         Text = text;
-        PublicationDate = publicationDate;
+        Date = date;
         Author = author;
     }
 }

@@ -55,8 +55,30 @@ internal class DataBaseForInstances
             .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
             .Select(p => typeof(T).GetProperty(p.Name)?
                 .GetValue(instance) ?? string.Empty);
+        properties = properties.Select(pr => 
+            pr.GetType().ToString() == "System.String"
+            ? $"'{pr}'" 
+            : pr);
         var query = $"insert into {_tableName} values ({string.Join(", ", properties)})";
         ExecuteNonQuery(query);
+    }
+    
+    public void Insert(params object[] args)
+    {
+        args = args.Select(pr => 
+            pr.GetType().ToString() == "System.String"
+                ? $"'{pr}'" 
+                : pr).ToArray();
+        string sqlExpression =
+            $"INSERT INTO {_tableName} " +
+            $"VALUES({string.Join(", ", args)})";
+
+        using var connection = new SqlConnection(_connectionString);
+
+        connection.Open();
+
+        var command = new SqlCommand(sqlExpression, connection);
+        command.ExecuteNonQuery();
     }
     
     public void Delete(int? id = null)
@@ -70,7 +92,7 @@ internal class DataBaseForInstances
     public void Update(string field, string value, int? id = null)
     {
         if (id is not null)
-            ExecuteNonQuery($"update {_tableName} set {field}={value} where Id={id}");
+            ExecuteNonQuery($"update {_tableName} set {field}='{value}' where Id={id}");
     }
 
 

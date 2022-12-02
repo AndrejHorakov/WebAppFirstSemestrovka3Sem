@@ -6,9 +6,9 @@ public class SessionProvider
 {
     private static readonly MemoryCache _cache = new(new MemoryCacheOptions());
 
-    public static Guid CreateSession(int accountId, string nickname, DateTime created)
+    public static Guid CreateSession(int accountId, string login, DateTime created)
     {
-        var session = new Session(Guid.NewGuid(), accountId, nickname, created);
+        var session = new Session(Guid.NewGuid(), accountId, login, created);
         var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(2));
         _cache.Set(session.Id, session, cacheOptions);
         return session.Id;
