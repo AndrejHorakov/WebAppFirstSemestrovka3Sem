@@ -81,10 +81,10 @@ internal class DataBaseForInstances
         command.ExecuteNonQuery();
     }
     
-    public void Delete(int? id = null)
+    public void Delete(string field, string value, int? id = null)
     {
-        var query = $"delete from {_tableName}";
-        query += id is not null ? $"where Id={id}" : "";
+        var query = $"delete from {_tableName} where {field} = '{value}'";
+        query += id is not null ? $"and Id={id}" : "";
         
         ExecuteNonQuery(query);
     }

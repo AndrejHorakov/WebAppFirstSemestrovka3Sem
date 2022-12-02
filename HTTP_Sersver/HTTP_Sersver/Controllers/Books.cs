@@ -14,7 +14,7 @@ public class Books
     [HttpGET("")]
     public static byte[] GetBooksPage(string id)
     {
-        var books = new DataBaseForInstances(BooksTableName).Select<Book>();
+        var books = new DataBaseForInstances(BooksTableName).Select<Book>().ToArray();
         var favBooks = new DataBaseForInstances(FavBooksTableName).Select<FavBook>();
        
         var user = Application.GetById(id);
@@ -22,8 +22,8 @@ public class Books
         {
             foreach (var book in books)
             {
-                if (!favBooks.Any(fb => fb.Id == user.Id && fb.BookName == book.Name && fb.Genre == book.Genre))
-                    book.NotFavourite = true;
+                if (!favBooks.Any(fb => fb.IdUser == user.Id && fb.BookName == book.Name && fb.Genre == book.Genre))
+                    book.Disrespectful = true;
             }
         }
 
@@ -31,17 +31,18 @@ public class Books
             File.ReadAllText(Path.GetFullPath(BooksPage)));
     }
         
-    [HttpPOST("")]
-    public static void PostFavBook(string bookName, string id)
+    [HttpPOST("postToFav")]
+    public static void PostFavBook(int idBook, string id)
     {
         var db = new DataBaseForInstances(BooksTableName);
-        var book = db.Select<Book>().FirstOrDefault(b => b.Name == bookName);
+        var book = db.Select<Book>().FirstOrDefault(b => b.Id == idBook);
         var user = Application.GetById(id);
         
         if (user is null || book is null)
             return;
         var dbFavBooks = new DataBaseForInstances(FavBooksTableName);
-        db.Insert(book);
+        var fb = new FavBook(user.Id, book.Name, book.Genre);
+        dbFavBooks.Insert(fb);
     }
 
 }

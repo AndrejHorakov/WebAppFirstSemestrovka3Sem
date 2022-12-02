@@ -18,10 +18,10 @@ public class General
             File.ReadAllText(Path.GetFullPath(GeneralPage)));
     
     [HttpPOST("edit")]
-    public static void UpdatePostById(int idPost, string text, string id)
+    public static void UpdatePostById(int idPost, string text)
     {
         var db = new DataBaseForInstances(PostsTableName);
-        if (text is not (not null or "")) return;
+        if (text is null or "") return;
         db.Update("Text", text.Replace("+", " "), idPost);
         db.Update("PublicationDate", DateTime.Now.ToString(), idPost);
     }

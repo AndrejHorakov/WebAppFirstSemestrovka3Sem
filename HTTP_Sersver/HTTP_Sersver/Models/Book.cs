@@ -7,7 +7,7 @@ public class Book
     public string Genre { get; }
     public string Description { get; }
     public string Path { get; }
-    public bool NotFavourite { get; set; }
+    public bool Disrespectful { get; set; }
 
     public Book(int id, string name, string genre, string description, string path)
     {

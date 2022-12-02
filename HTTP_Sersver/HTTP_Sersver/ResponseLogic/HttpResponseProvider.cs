@@ -162,7 +162,7 @@ internal partial class HttpResponseProvider : IHttpResponseProvider
     {
         "SaveUser" => "http://localhost:8080/authorisation",
         "PostFavBook" => "http://localhost:8080/books",
-        "DeleteFavBook" => "http://localhost:8080/favBooks",
+        "DeleteFavBook" => "http://localhost:8080/profile",
         "UpdateProfilePage" => "http://localhost:8080/profile",
         _ => "http://localhost:8080/general"
     };
@@ -178,11 +178,9 @@ internal partial class HttpResponseProvider : IHttpResponseProvider
     private ServerResponse GetResponseNotFound(string? rawUrl) =>
         new ServerResponse(Encoding.UTF8.GetBytes($"File {rawUrl} not found 404."), 
             "text/plain", HttpStatusCode.NotFound);
-    
+
     private static byte[]? GetFile(string? rawUrl, string directory, string? urlRefer, out string contentType)
     {
-        rawUrl = rawUrl!.Replace("/Application", "");
-        urlRefer = urlRefer?.Replace("/Application", "");
         byte[]? result = null;
         var filePath = directory + urlRefer + rawUrl;
         if (Directory.Exists(filePath))
@@ -191,9 +189,14 @@ internal partial class HttpResponseProvider : IHttpResponseProvider
             if (File.Exists(filePath))
                 result = File.ReadAllBytes(filePath);
         }
-        else if (File.Exists(filePath))
-            result = File.ReadAllBytes(filePath);
-        
+        else
+        {
+            if (File.Exists(filePath))
+                result = File.ReadAllBytes(filePath);
+            else if (File.Exists(directory + rawUrl))
+                result = File.ReadAllBytes(directory + rawUrl);
+        }
+
         contentType = GetContentType(rawUrl);
         return result;
     }

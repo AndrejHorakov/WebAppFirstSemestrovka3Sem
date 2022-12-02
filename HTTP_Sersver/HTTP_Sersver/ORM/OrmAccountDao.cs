@@ -64,19 +64,18 @@ public class OrmAccountDao : IOrmAccountDao
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
-        var cmd = new SqlCommand(query);
+        var cmd = new SqlCommand(query, connection);
         cmd.ExecuteNonQuery();
     }
 
     public void Update(string field, string value, int? id)
     {
-        var query = $"update {TableName} set {field}={value}";
-        query += id is not null ? $"where Id={id}" : "";
+        var query = $"update {TableName} set {field}='{value}' where Id={id}";
 
         using var connection = new SqlConnection(ConnectionString);
         connection.Open();
 
-        var cmd = new SqlCommand(query);
+        var cmd = new SqlCommand(query, connection);
         cmd.ExecuteNonQuery();
     }
 }

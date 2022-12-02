@@ -2,13 +2,13 @@
 
 public class FavBook
 {
-    public int Id { get; }
+    public int IdUser { get; }
     public string BookName { get; set; }
     public string Genre { get; set; }
 
-    public FavBook(int id, string bookName, string genre)
+    public FavBook(int idUser, string bookName, string genre)
     {
-        Id = id;
+        IdUser = idUser;
         BookName = bookName;
         Genre = genre;
     }
