@@ -37,8 +37,7 @@ public class Application
     
     public static User? GetById(string id)
     {
-        //TODO: разобраться что надо Guid, если строка пустая или null
-        id = id is "" or null ? "NotFound" : id;
+        if (id is "" or null) return null;
         var guid = new Guid(id);
         var session = SessionProvider.GetSessionInfo(guid);
         int usId;
